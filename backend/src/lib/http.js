@@ -1,0 +1,17 @@
+class AppError extends Error {
+  constructor(statusCode, message, details) {
+    super(message);
+    this.name = 'AppError';
+    this.statusCode = statusCode;
+    this.details = details;
+  }
+}
+
+const asyncHandler = (handler) => (req, res, next) => {
+  Promise.resolve(handler(req, res, next)).catch(next);
+};
+
+module.exports = {
+  AppError,
+  asyncHandler,
+};
